@@ -1,0 +1,11 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+.idea
+node_modules
+config/bot.js

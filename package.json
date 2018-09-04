@@ -1,0 +1,37 @@
+{
+  "name": "telegram-bot",
+  "title": "Creates a Telegram Bot for Minoss",
+  "version": "0.1.0",
+  "description": "Creates a Telegram Bot for Minoss",
+  "main": "package.json",
+  "homepage": "https://github.com/eisbehr-/minoss-telegram-bot",
+  "bugs": "https://github.com/eisbehr-/minoss-telegram-bot/issues",
+  "author": {
+    "name": "Daniel 'Eisbehr' Kern",
+    "email": "jquery@eisbehr.de",
+    "url": "http://eisbehr.de/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eisbehr-/minoss-telegram-bot.git"
+  },
+  "keywords": [
+    "minoss",
+    "telegram",
+    "bot"
+  ],
+  "license": "(MIT OR GPL-2.0)",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    },
+    {
+      "type": "GPL-2.0",
+      "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+    }
+  ],
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
