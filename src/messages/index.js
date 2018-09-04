@@ -4,7 +4,7 @@ let formatter = require('./formatter');
 let storage = require('../storage');
 
 let messages = {
-    config: require('./../../config/messages'),
+    config: require('../../config/messages'),
     _: formatter,
     sendHtml: require('./types/html'),
     sendMarkdown: require('./types/markdown'),

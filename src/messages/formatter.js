@@ -1,7 +1,5 @@
 'use strict';
 
-let messages = require('./../../config/messages');
-
 /**
  * formatter for replaces in messages
  * @param {string} msg
@@ -9,6 +7,7 @@ let messages = require('./../../config/messages');
  * @returns string
  */
 module.exports = (msg, replaces) => {
+    let messages = require('./').config;
     msg = messages[msg] || msg;
 
     // select random message if is an array
