@@ -9,6 +9,7 @@ let messages = {
     _: formatter,
     sendHtml: require('./types/html'),
     sendMarkdown: require('./types/markdown'),
+    sendPhoto: require('./types/photo'),
     sendText: require('./types/text'),
     broadcast: {
         sendHtml: (bot, msg, replaces) => {
@@ -19,6 +20,11 @@ let messages = {
         sendMarkdown: (bot, msg, replaces) => {
             Object.keys(storage.users).forEach(username => {
                 messages.sendMarkdown(bot, storage.users[username].chatId, msg, replaces);
+            });
+        },
+        sendPhoto: (bot, photo, caption, replaces) => {
+            Object.keys(storage.users).forEach(username => {
+                messages.sendPhoto(bot, storage.users[username].chatId, photo, caption, replaces);
             });
         },
         sendText: (bot, msg, replaces) => {

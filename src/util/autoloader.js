@@ -23,9 +23,7 @@ let autoloader = {
             let dir = require.resolve('telegram-bot');
             autoloader.addCommandsDir(path.dirname(dir) + '/commands');
         }
-        catch(e) {
-            console.log(e);
-        }
+        catch(e) {}
 
         // check for local commands directory
         try {
