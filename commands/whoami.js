@@ -30,10 +30,12 @@ module.exports = {
     register: (bot, security) => {
         bot.onText(/\/whoami/, msg => {
             let message = security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
-        
+            let since = security.registeredSince(msg.from.username);
+
             messages.sendMarkdown(bot, msg.chat.id, message, {
                 name: msg.from.username,
-                since: security.registeredSince(msg.from.username)
+                date: since.date,
+                time: since.time
             });
         });
     }

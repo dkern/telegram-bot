@@ -35,5 +35,13 @@ module.exports = {
      */
     allowedUserWhitelist: [
         'usernames'
-    ]
+    ],
+
+    /**
+     * bot options
+     * @type {*}
+     */
+    options: {
+        polling: true
+    }
 };

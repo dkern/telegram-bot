@@ -29,13 +29,16 @@ module.exports = {
     /**
      * get user registration date
      * @param {string} username
-     * @returns {string|null}
+     * @returns {object|null}
      */
     registeredSince: username => {
+        let since = {date: null, time: null};
+        
         if(storage.users[username]) {
-            return storage.users[username].date;
+            since.date = storage.users[username].date;
+            since.time = storage.users[username].time;
         }
 
-        return null;
+        return since;
     }
 };

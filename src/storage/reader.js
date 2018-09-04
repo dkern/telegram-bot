@@ -9,14 +9,8 @@ module.exports = {
      */
     readUsers: () => {
         try {
-            fs.readFileSync(process.cwd() + '/tmp/usernames', (err, data) => {
-                if (err) {
-                    console.log(err);
-                    return {};
-                }
-
-                return JSON.parse(data);
-            });
+            let data = fs.readFileSync(process.cwd() + '/tmp/usernames');
+            return JSON.parse(data);
         }
         catch(e) {}
 

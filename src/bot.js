@@ -9,7 +9,7 @@ let TelegramBot = require('node-telegram-bot-api');
  * start telegram bot with given configuration
  * @param {object} botConfig
  * @param {object} messagesConfig
- * @returns {TelegramBot}
+ * @returns {object}
  */
 module.exports = (botConfig, messagesConfig) => {
     let config = botConfig;
@@ -21,7 +21,7 @@ module.exports = (botConfig, messagesConfig) => {
 
     // default error handler
     bot.on('polling_error', err => {
-        // console.log(err);
+        console.log(err);
     });
 
     // register commands
@@ -37,5 +37,8 @@ module.exports = (botConfig, messagesConfig) => {
         process.exit(0);
     });
 
-    return bot;
+    return {
+        bot: bot,
+        messages: messages,
+    };
 };

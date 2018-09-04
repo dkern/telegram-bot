@@ -32,7 +32,7 @@ module.exports = {
             let commands = autoloader.commands();
 
             Object.keys(commands).forEach(name => {
-                help += commands[name].name + ' - ' + commands[name].description + '\n';
+                help += commands[name].cmd + ' - ' + commands[name].description + '\n';
             });
 
             messages.sendMarkdown(bot, msg.chat.id, help);

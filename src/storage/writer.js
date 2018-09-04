@@ -10,8 +10,10 @@ module.exports = {
      * @returns {void}
      */
     writeUsers: (usernames, callback) => {
-        if (Array.isArray(usernames)) {
-            usernames = JSON.stringify(usernames);
+        usernames = JSON.stringify(usernames);
+
+        if (!fs.existsSync(process.cwd() + '/tmp')){
+            fs.mkdirSync(process.cwd() + '/tmp');
         }
 
         fs.writeFile(process.cwd() + '/tmp/usernames', usernames, err => {
