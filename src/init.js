@@ -25,7 +25,7 @@ module.exports = (botConfig, messagesConfig) => {
     });
 
     // register commands
-    let commands = autoloader.commands();
+    let commands = autoloader.getCommands();
     Object.keys(commands).forEach(name => {
         commands[name].register(bot, security);
         console.log(messages._('serverRegisterCms', {cmd: name}));

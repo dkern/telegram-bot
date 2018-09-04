@@ -13,7 +13,7 @@ let autoloader = {
      * allocates all command files
      * @returns {object}
      */
-    commands: () => {
+    getCommands: () => {
         if (commands.length) {
             return commands;
         }
@@ -21,7 +21,7 @@ let autoloader = {
         // check for default commands
         try {
             let dir = require.resolve('telegram-bot/commands');
-            autoloader.fileLocator(dir, commands);
+            autoloader.addCommandsDir(path.dirname(dir) + '/commands');
         }
         catch(e) {}
 
@@ -34,7 +34,26 @@ let autoloader = {
                 throw new Error();
             }
 
-            autoloader.fileLocator(dir, commands);
+            autoloader.addCommandsDir(dir);
+        }
+        catch(e) {}
+
+        return commands;
+    },
+
+    /**
+     * add a directory of commands
+     * @param {string} dir
+     * @return {object}
+     */
+    addCommandsDir: dir => {
+        try {
+            if (!fs.lstatSync(dir).isDirectory()) {
+                //noinspection ExceptionCaughtLocallyJS
+                throw new Error();
+            }
+
+            autoloader.fileLocator(dir);
         }
         catch(e) {}
 
@@ -45,47 +64,42 @@ let autoloader = {
      * add a command manually to bot instance
      * @param {string} name
      * @param {object} cmd
-     * @returns {void}
+     * @returns {object}
      */
     addCommand: (name, cmd) => {
         if (!cmd.register) {
-            throw new Error('an command object needs a \'register\' function');
+            throw new Error('command object of \'' + name + '\' needs a \'register\' function');
         }
     
         if (!cmd.cmd) {
-            console.log('your command object should have \'cmd\' property set');
+            console.log('command object of \'' + name + '\' should have \'cmd\' property set');
         }
 
         if (!cmd.description) {
-            console.log('your command object should have \'description\' property set');
+            console.log('command object of \'' + name + '\' should have \'description\' property set');
         }
         
         commands[name] = cmd;
+        
+        return commands;
     },
 
     /**
      * helper function to locate and load config files
      * @access private
      * @param {string} filesDir
-     * @param {object} object
-     * @returns {boolean|object}
+     * @returns {void}
      */
-    fileLocator: (filesDir, object) => {
+    fileLocator: (filesDir) => {
         try {
-            let loaded = object || {};
-
             fs.readdirSync(filesDir).forEach(file => {
                 if (path.extname(file) === '.js') {
                     let fileName = path.basename(file, '.js');
-                    loaded[fileName] = require(filesDir + '/' + fileName);
+                    autoloader.addCommand(fileName, require(filesDir + '/' + fileName));
                 }
             });
-
-            return loaded;
         }
         catch(e) {}
-
-        return false;
     }
 };
 
