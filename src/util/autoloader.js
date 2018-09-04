@@ -23,7 +23,9 @@ let autoloader = {
             let dir = require.resolve('telegram-bot');
             autoloader.addCommandsDir(path.dirname(dir) + '/commands');
         }
-        catch(e) {}
+        catch(e) {
+            console.log(e);
+        }
 
         // check for local commands directory
         try {
@@ -36,7 +38,9 @@ let autoloader = {
 
             autoloader.addCommandsDir(dir);
         }
-        catch(e) {}
+        catch(e) {
+            console.log(e);
+        }
 
         return commands;
     },
@@ -55,7 +59,9 @@ let autoloader = {
 
             autoloader.fileLocator(dir);
         }
-        catch(e) {}
+        catch(e) {
+            console.log(e);
+        }
 
         return commands;
     },
@@ -91,15 +97,12 @@ let autoloader = {
      * @returns {void}
      */
     fileLocator: (filesDir) => {
-        try {
-            fs.readdirSync(filesDir).forEach(file => {
-                if (path.extname(file) === '.js') {
-                    let fileName = path.basename(file, '.js');
-                    autoloader.addCommand(fileName, require(filesDir + '/' + fileName));
-                }
-            });
-        }
-        catch(e) {}
+        fs.readdirSync(filesDir).forEach(file => {
+            if (path.extname(file) === '.js') {
+                let fileName = path.basename(file, '.js');
+                autoloader.addCommand(fileName, require(filesDir + '/' + fileName));
+            }
+        });
     }
 };
 

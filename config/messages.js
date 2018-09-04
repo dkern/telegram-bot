@@ -19,7 +19,7 @@ module.exports = {
     ],
 
     // command responses
-    start: 'Hallo, ich bin *${name}*, Eisbehr\'s persönlicher Homebot. Ich habe Kontrolle über alle Haus-Systeme und verteile wenn nötig Informationen.',
+    start: 'Hallo ${user}, ich bin *${name}*, Eisbehr\'s persönlicher Homebot. Ich habe Kontrolle über alle Haus-Systeme und verteile wenn nötig Informationen.',
     help: '*Du brauchst Hilfe?*\n\nMit folgenden Kommandos kannst du mir Befehle erteilen oder Informationen anfragen:',
     unregistered: 'Bestätigt. Du erhälst keine weiteren Updates von mir.',
     uptime: 'Ich wurde am *${date}* um *${time}* Uhr gestartet und bin somit seit *${uptime}* aktiv.',

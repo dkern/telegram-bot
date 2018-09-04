@@ -27,7 +27,7 @@ module.exports = {
     register: (bot, security) => {
         bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
-            messages.sendMarkdown(bot, chatId, 'start', {name: config.bot.name}).then(() => {
+            messages.sendMarkdown(bot, chatId, 'start', {user: msg.from.username, name: config.bot.name}).then(() => {
                 if (!security.allowed(msg)) {
                     messages.sendText(bot, chatId, 'userRejected');
                 } else {
