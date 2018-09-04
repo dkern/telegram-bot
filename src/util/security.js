@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('./../../config/bot');
+let config = require('../config');
 let storage = require('../storage');
 let messages = require('../messages');
 
@@ -41,11 +41,11 @@ let security = {
             username = username.from.username;
         }
 
-        if (config.allowedUserWhitelist.indexOf(username) >= 0) {
+        if (config.bot.allowedUserWhitelist.indexOf(username) >= 0) {
             return true;
         }
 
-        return !config.useUserWhitelist;
+        return !config.bot.useUserWhitelist;
     },
 
     /**

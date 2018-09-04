@@ -1,10 +1,5 @@
 'use strict';
 
-let messages = require('./messages');
-let security = require('./util/security');
-let autoloader = require('./util/autoloader');
-let TelegramBot = require('node-telegram-bot-api');
-
 /**
  * start telegram bot with given configuration
  * @param {object} botConfig
@@ -12,12 +7,19 @@ let TelegramBot = require('node-telegram-bot-api');
  * @returns {object}
  */
 module.exports = (botConfig, messagesConfig) => {
-    let config = botConfig;
-    messages.config = messagesConfig;
+    let config = require('./config');
+
+    config.bot = botConfig;
+    config.messages = messagesConfig;
+
+    let messages = require('./messages');
+    let security = require('./util/security');
+    let autoloader = require('./util/autoloader');
+    let TelegramBot = require('node-telegram-bot-api');
 
     // start bot
-    console.log(messages._('serverStarting', {name: config.name}));
-    let bot = new TelegramBot(config.token, config.options);
+    console.log(messages._('serverStarting', {name: config.bot.name}));
+    let bot = new TelegramBot(config.bot.token, config.bot.options);
 
     // default error handler
     bot.on('polling_error', err => {
@@ -33,7 +35,7 @@ module.exports = (botConfig, messagesConfig) => {
 
     // process stop
     process.on('SIGINT', () => {
-        console.log(messages._('serverStopping', {name: config.name}));
+        console.log(messages._('serverStopping', {name: config.bot.name}));
         process.exit(0);
     });
 

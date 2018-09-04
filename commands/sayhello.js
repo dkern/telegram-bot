@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('../config/bot');
+let config = require('../src/config');
 let messages = require('../src/messages');
 
 /**
@@ -28,7 +28,7 @@ module.exports = {
      */
     register: bot => {
         bot.onText(/^\/sayhello$/i, msg => {
-            messages.sendMarkdown(bot, msg.chat.id, 'start', {name: config.name});
+            messages.sendMarkdown(bot, msg.chat.id, 'start', {name: config.bot.name});
         });
     }
 };

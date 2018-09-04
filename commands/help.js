@@ -34,7 +34,7 @@ module.exports = {
             }
         
             let help = messages._('help') + '\n\n';
-            let commands = autoloader.commands();
+            let commands = autoloader.getCommands();
 
             Object.keys(commands).forEach(name => {
                 help += commands[name].cmd + ' - ' + commands[name].description + '\n';

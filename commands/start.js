@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('../config/bot');
+let config = require('../src/config');
 let messages = require('../src/messages');
 let storage = require('../src/storage');
 let autoloader = require('../src/util/autoloader');
@@ -27,7 +27,7 @@ module.exports = {
     register: (bot, security) => {
         bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
-            messages.sendMarkdown(bot, chatId, 'start', {name: config.name}).then(() => {
+            messages.sendMarkdown(bot, chatId, 'start', {name: config.bot.name}).then(() => {
                 if (!security.allowed(msg)) {
                     messages.sendText(bot, chatId, 'userRejected');
                 } else {
@@ -35,7 +35,7 @@ module.exports = {
                     storage.addUser(msg.from.username, chatId);
                     messages.sendText(bot, chatId, 'userAllowed').then(() => {
                         let help = messages._('help') + '\n\n';
-                        let commands = autoloader.commands();
+                        let commands = autoloader.getCommands();
 
                         Object.keys(commands).forEach(name => {
                             help += commands[name].cmd + ' - ' + commands[name].description + '\n';

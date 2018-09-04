@@ -1,6 +1,5 @@
 'use strict';
 
-let config = require('../config/bot');
 let messages = require('../src/messages');
 
 /**

@@ -1,10 +1,11 @@
 'use strict';
 
+let config = require('../config');
 let formatter = require('./formatter');
 let storage = require('../storage');
 
 let messages = {
-    config: require('../../config/messages'),
+    config: config.messages,
     _: formatter,
     sendHtml: require('./types/html'),
     sendMarkdown: require('./types/markdown'),

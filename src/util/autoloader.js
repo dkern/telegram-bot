@@ -20,7 +20,7 @@ let autoloader = {
 
         // check for default commands
         try {
-            let dir = require.resolve('telegram-bot/commands');
+            let dir = require.resolve('telegram-bot');
             autoloader.addCommandsDir(path.dirname(dir) + '/commands');
         }
         catch(e) {}
