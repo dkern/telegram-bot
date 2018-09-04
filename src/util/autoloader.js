@@ -42,6 +42,28 @@ let autoloader = {
     },
 
     /**
+     * add a command manually to bot instance
+     * @param {string} name
+     * @param {object} cmd
+     * @returns {void}
+     */
+    addCommand: (name, cmd) => {
+        if (!cmd.register) {
+            throw new Error('an command object needs a \'register\' function');
+        }
+    
+        if (!cmd.cmd) {
+            console.log('your command object should have \'cmd\' property set');
+        }
+
+        if (!cmd.description) {
+            console.log('your command object should have \'description\' property set');
+        }
+        
+        commands[name] = cmd;
+    },
+
+    /**
      * helper function to locate and load config files
      * @access private
      * @param {string} filesDir

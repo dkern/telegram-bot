@@ -40,5 +40,6 @@ module.exports = (botConfig, messagesConfig) => {
     return {
         bot: bot,
         messages: messages,
+        addCommand: autoloader.addCommand
     };
 };
