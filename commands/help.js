@@ -24,10 +24,15 @@ module.exports = {
     /**
      * command register handler
      * @param {TelegramBot} bot
+     * @param {object} security
      * @returns {void}
      */
-    register: bot => {
-        bot.onText(/\/help/, msg => {
+    register: (bot, security) => {
+        bot.onText(/^\/?help$/i, msg => {
+            if (!security.check(bot, msg)) {
+                return;
+            }
+        
             let help = messages._('help') + '\n\n';
             let commands = autoloader.commands();
 

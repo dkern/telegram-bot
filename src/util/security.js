@@ -2,15 +2,46 @@
 
 let config = require('./../../config/bot');
 let storage = require('../storage');
+let messages = require('../messages');
 
-module.exports = {
+let security = {
+    /**
+     * checks if a user is allowed and registered
+     * @param {TelegramBot} bot
+     * @param {string|number|object} chatId
+     * @param {string|object} [username]
+     * @returns {boolean}
+     */
+    check: (bot, chatId, username) => {
+        if (!username && Object.prototype.toString.call(chatId) === '[object Object]') {
+            username = chatId.from.username;
+            chatId = chatId.chat.id;
+        }
+    
+        if (!security.allowed(username)) {
+            messages.sendText(bot, chatId, 'userRejected');
+            return false;
+        }
+
+        if (!security.registered(username)) {
+            messages.sendText(bot, chatId, 'userUnregistered');
+            return false;
+        }
+
+        return true;
+    },
+
     /**
      * check if a user message is allowed
-     * @param {object} msg
+     * @param {string|object} username
      * @returns boolean
      */
-    allowed: msg => {
-        if (config.allowedUserWhitelist.indexOf(msg.from.username) >= 0) {
+    allowed: username => {
+        if (username.from && username.from.username) {
+            username = username.from.username;
+        }
+
+        if (config.allowedUserWhitelist.indexOf(username) >= 0) {
             return true;
         }
 
@@ -23,6 +54,10 @@ module.exports = {
      * @returns {boolean}
      */
     registered: username => {
+        if (username.from && username.from.username) {
+            username = username.from.username;
+        }
+
         return !!storage.users[username];
     },
 
@@ -42,3 +77,5 @@ module.exports = {
         return since;
     }
 };
+
+module.exports = security;

@@ -28,7 +28,7 @@ module.exports = {
      * @returns {void}
      */
     register: (bot, security) => {
-        bot.onText(/\/whoami/, msg => {
+        bot.onText(/^\/whoami$/i, msg => {
             let message = security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
             let since = security.registeredSince(msg.from.username);
 

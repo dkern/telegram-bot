@@ -27,7 +27,7 @@ module.exports = {
      * @returns {void}
      */
     register: bot => {
-        bot.onText(/\/sayhello/, msg => {
+        bot.onText(/^\/sayhello$/i, msg => {
             messages.sendMarkdown(bot, msg.chat.id, 'start', {name: config.name});
         });
     }

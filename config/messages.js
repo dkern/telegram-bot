@@ -8,23 +8,29 @@ module.exports = {
 
     // user authentication
     userAllowed: 'Ich freue mich dich registreiren zu dürfen! Ich habe die Freigabe dir ab sofort benötigte Informationen zukommen zu lassen.',
+    userUnregistered: 'Du musst dich anmelden, um mit mir zu sprechen. Nutze den /start Befehl dazu.',
     userRejected: [
-        'Ich habe leider keine Freigabe, um mit dir zu sprechen. Bitte wende dich an meinen Entwickler. Du weißt schon.',
-        'Permission denied.',
-        'Für dich ist leider keine Sicherheitsfreigabe vorhanden. Ich darf nicht mit dir sprechen.'
+        '(!) Ich habe leider keine Freigabe, um mit dir zu sprechen. Bitte wende dich an meinen Entwickler. Du weißt schon.',
+        '(!) Permission denied.',
+        '(!) Für dich ist leider keine Sicherheitsfreigabe vorhanden. Ich darf nicht mit dir sprechen.',
+        '(!) Ich kenne dich nicht, daher antworte ich dir auch nicht.',
+        '(!) Meine Firewall blockiert dich weiterhin.',
+        '(!) Wenn du Informationen von mir haben möchtest, sprich zuerst mit meinem Besitzer.'
     ],
 
     // command responses
     start: 'Hallo, ich bin *${name}*, Eisbehr\'s persönlicher Homebot. Ich habe Kontrolle über alle Haus-Systeme und verteile wenn nötig Informationen.',
     help: '*Du brauchst Hilfe?*\n\nMit folgenden Kommandos kannst du mir Befehle erteilen oder Informationen anfragen:',
     unregistered: 'Bestätigt. Du erhälst keine weiteren Updates von mir.',
-    whoamiRegistered: 'Du bist *${name}* und ich habe dich seit dem *${date}* um *${time}* registriert.',
-    whoamiUnregistered: 'Du bist *${name}*, ich kann allerdings keine Daten zu dir finden.',
+    uptime: 'Ich wurde am *${date}* um *${time}* Uhr gestartet und bin somit seit *${uptime}* aktiv.',
+    whoamiRegistered: 'Du bist *${name}* und ich habe dich seit dem *${date}* um *${time}* Uhr registriert.',
+    whoamiUnregistered: 'Du bist *${name}*, ich kann allerdings keine Daten zu dir finden. Ich glaube du bist nicht registriert. Nutze /start, um dich anzumelden.',
 
     // command help
     cmdHelp: 'prints this help',
     cmdStart: 'start interactions',
     cmdSayHello: 'welcome message',
     cmdUnregister: 'disconnect from me',
+    cmdUptime: 'bot uptime info',
     cmdWhoAmI: 'information about you'
 };
