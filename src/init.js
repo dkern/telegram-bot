@@ -17,15 +17,23 @@ let init = (botConfig, messagesConfig) => {
     let TelegramBot = require('node-telegram-bot-api');
 
     // start bot
-    console.log(messages._('serverStarting', {name: config.bot.name}));
     let bot = new TelegramBot(config.bot.token, config.bot.options);
+    console.log(messages._('serverStarting', {name: config.bot.name}));
+
+    // register bot on messages functions
+    messages.bot = bot;
+
+    messages.broadcast.sendMarkdown(bot, 'started');
     autoloader.registerCommands(bot);
+
+    // on errors
     bot.on('polling_error', err => console.log(err));
 
     // process stop
     process.on('SIGINT', () => {
+        messages.broadcast.sendMarkdown(bot, 'stopped');
         console.log(messages._('serverStopping', {name: config.bot.name}));
-        process.exit(0);
+        setTimeout(() => process.exit(0), 200);
     });
 
     return {

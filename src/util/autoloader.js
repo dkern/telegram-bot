@@ -99,8 +99,8 @@ let autoloader = {
      * @returns {void}
      */
     registerCommands: (bot) => {
-        Object.keys(commands).forEach(name => {
-            commands[name].register(bot, security);
+        Object.keys(autoloader.getCommands()).forEach(name => {
+            commands[name].register(bot, messages, security);
             console.log(messages._('serverRegisterCmd', {cmd: name}));
         });
     },

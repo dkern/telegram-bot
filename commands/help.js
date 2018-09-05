@@ -30,10 +30,11 @@ module.exports = {
     /**
      * command register handler
      * @param {TelegramBot} bot
+     * @param {object} messages
      * @param {object} security
      * @returns {void}
      */
-    register: (bot, security) => {
+    register: (bot, messages, security) => {
         bot.onText(/^\/?help$/i, msg => {
             if (!security.check(bot, msg)) {
                 return;

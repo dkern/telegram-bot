@@ -27,10 +27,11 @@ module.exports = {
     /**
      * command handler
      * @param {TelegramBot} bot
+     * @param {object} messages
      * @param {object} security
      * @returns {void}
      */
-    register: (bot, security) => {
+    register: (bot, messages, security) => {
         bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
             messages.sendMarkdown(bot, chatId, 'start', {user: msg.from.username, name: config.bot.name}).then(() => {

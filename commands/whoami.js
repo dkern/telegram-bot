@@ -29,10 +29,11 @@ module.exports = {
     /**
      * command register handler
      * @param {TelegramBot} bot
+     * @param {object} messages
      * @param {object} security
      * @returns {void}
      */
-    register: (bot, security) => {
+    register: (bot, messages, security) => {
         bot.onText(/^\/whoami$/i, msg => {
             let message = security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
             let since = security.registeredSince(msg.from.username);
