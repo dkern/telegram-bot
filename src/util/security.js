@@ -17,7 +17,7 @@ let security = {
             username = chatId.from.username;
             chatId = chatId.chat.id;
         }
-    
+
         if (!security.allowed(username)) {
             messages.sendText(bot, chatId, 'userRejected');
             return false;

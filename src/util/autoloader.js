@@ -1,7 +1,10 @@
 'use strict';
 
-let path = require('path');
 let fs = require('fs');
+let path = require('path');
+let messages = require('../messages');
+let security = require('./security');
+
 let commands = {};
 
 /**
@@ -74,22 +77,36 @@ let autoloader = {
         if (!cmd.register) {
             throw new Error('command object of \'' + name + '\' needs a \'register\' function');
         }
-    
-        if (!cmd.cmd) {
-            console.log('command object of \'' + name + '\' should have \'cmd\' property set');
+
+        if(cmd.showInHelp) {
+            if (!cmd.cmd) {
+                console.log('command object of \'' + name + '\' should have \'cmd\' property set');
+            }
+
+            if (!cmd.description) {
+                console.log('command object of \'' + name + '\' should have \'description\' property set');
+            }
         }
 
-        if (!cmd.description) {
-            console.log('command object of \'' + name + '\' should have \'description\' property set');
-        }
-        
         commands[name] = cmd;
-        
+
         return commands;
     },
 
     /**
-     * helper function to locate and load config files
+     * register commands on bot instance
+     * @param {TelegramBot} bot
+     * @returns {void}
+     */
+    registerCommands: (bot) => {
+        Object.keys(commands).forEach(name => {
+            commands[name].register(bot, security);
+            console.log(messages._('serverRegisterCmd', {cmd: name}));
+        });
+    },
+
+    /**
+     * helper function to load all files in an directory
      * @access private
      * @param {string} filesDir
      * @returns {void}

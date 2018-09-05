@@ -6,7 +6,7 @@
  * @param {object} messagesConfig
  * @returns {object}
  */
-module.exports = (botConfig, messagesConfig) => {
+let init = (botConfig, messagesConfig) => {
     let config = require('./config');
 
     config.bot = botConfig;
@@ -20,18 +20,8 @@ module.exports = (botConfig, messagesConfig) => {
     // start bot
     console.log(messages._('serverStarting', {name: config.bot.name}));
     let bot = new TelegramBot(config.bot.token, config.bot.options);
-
-    // default error handler
-    bot.on('polling_error', err => {
-        console.log(err);
-    });
-
-    // register commands
-    let commands = autoloader.getCommands();
-    Object.keys(commands).forEach(name => {
-        commands[name].register(bot, security);
-        console.log(messages._('serverRegisterCms', {cmd: name}));
-    });
+    autoloader.registerCommands(bot);
+    bot.on('polling_error', err => console.log(err));
 
     // process stop
     process.on('SIGINT', () => {
@@ -40,8 +30,11 @@ module.exports = (botConfig, messagesConfig) => {
     });
 
     return {
-        bot: bot,
-        messages: messages,
-        addCommand: autoloader.addCommand
+        bot: (init.bot = bot),
+        config: (init.config = config),
+        messages: (init.messages = messages),
+        autoloader: (init.autoloader = autoloader)
     };
 };
+
+module.exports = init;

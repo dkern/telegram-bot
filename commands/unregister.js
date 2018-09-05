@@ -17,6 +17,12 @@ module.exports = {
     description: messages.config.cmdUnregister,
 
     /**
+     * show command in help message
+     * @type {boolean}
+     */
+    showInHelp: true,
+
+    /**
      * command handler
      * @param {TelegramBot} bot
      * @returns {void}

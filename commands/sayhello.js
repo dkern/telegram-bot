@@ -22,13 +22,22 @@ module.exports = {
     description: messages.config.cmdSayHello,
 
     /**
+     * show command in help message
+     * @type {boolean}
+     */
+    showInHelp: true,
+
+    /**
      * command register handler
      * @param {TelegramBot} bot
      * @returns {void}
      */
     register: bot => {
         bot.onText(/^\/sayhello$/i, msg => {
-            messages.sendMarkdown(bot, msg.chat.id, 'start', {user: msg.from.username, name: config.bot.name});
+            messages.sendMarkdown(bot, msg.chat.id, 'start', {
+                user: msg.from.username,
+                name: config.bot.name
+            });
         });
     }
 };

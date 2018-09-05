@@ -21,6 +21,12 @@ module.exports = {
     description: messages.config.cmdUptime,
 
     /**
+     * show command in help message
+     * @type {boolean}
+     */
+    showInHelp: true,
+
+    /**
      * command register handler
      * @param {TelegramBot} bot
      * @param {object} security

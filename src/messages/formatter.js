@@ -13,7 +13,7 @@ module.exports = (msg, replaces) => {
 
     // select random message if is an array
     if (Array.isArray(msg)) {
-        msg = msg[Math.floor(Math.random()*msg.length)];
+        msg = msg[Math.floor(Math.random() * msg.length)];
     }
 
     Object.keys(replaces || {}).forEach(key => {

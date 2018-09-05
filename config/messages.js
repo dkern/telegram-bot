@@ -4,7 +4,7 @@ module.exports = {
     // server console messages
     serverStarting: '${name} is running ...',
     serverStopping: '${name} is shutting down ...',
-    serverRegisterCms: 'Command \'${cmd}\' registered ...',
+    serverRegisterCmd: 'Command \'${cmd}\' registered ...',
 
     // user authentication
     userAllowed: 'Ich freue mich dich registreiren zu dürfen! Ich habe die Freigabe dir ab sofort benötigte Informationen zukommen zu lassen.',

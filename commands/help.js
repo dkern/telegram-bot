@@ -22,6 +22,12 @@ module.exports = {
     description: messages.config.cmdHelp,
 
     /**
+     * show command in help message
+     * @type {boolean}
+     */
+    showInHelp: true,
+
+    /**
      * command register handler
      * @param {TelegramBot} bot
      * @param {object} security
@@ -32,12 +38,14 @@ module.exports = {
             if (!security.check(bot, msg)) {
                 return;
             }
-        
+
             let help = messages._('help') + '\n\n';
             let commands = autoloader.getCommands();
 
             Object.keys(commands).forEach(name => {
-                help += commands[name].cmd + ' - ' + commands[name].description + '\n';
+                if (commands[name].showInHelp) {
+                    help += commands[name].cmd + ' - ' + commands[name].description + '\n';
+                }
             });
 
             messages.sendMarkdown(bot, msg.chat.id, help);

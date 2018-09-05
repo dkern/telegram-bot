@@ -1,11 +1,11 @@
 {
   "name": "telegram-bot",
-  "title": "Creates a Telegram Bot for Minoss",
+  "title": "Telegram Bot",
   "version": "0.1.0",
-  "description": "Creates a Telegram Bot for Minoss",
+  "description": "Creates a Telegram Bot",
   "main": "package.json",
-  "homepage": "https://github.com/eisbehr-/minoss-telegram-bot",
-  "bugs": "https://github.com/eisbehr-/minoss-telegram-bot/issues",
+  "homepage": "https://github.com/eisbehr-/telegram-bot",
+  "bugs": "https://github.com/eisbehr-/telegram-bot/issues",
   "author": {
     "name": "Daniel 'Eisbehr' Kern",
     "email": "jquery@eisbehr.de",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:eisbehr-/minoss-telegram-bot.git"
+    "url": "git@github.com:eisbehr-/telegram-bot.git"
   },
   "keywords": [
     "minoss",
