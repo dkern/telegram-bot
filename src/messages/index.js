@@ -17,7 +17,7 @@ let messages = {
 
     /**
      * messages config
-     * @type {object}
+     * @type {*}
      */
     config: config.messages,
 
