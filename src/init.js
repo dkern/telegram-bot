@@ -13,7 +13,6 @@ let init = (botConfig, messagesConfig) => {
     config.messages = messagesConfig;
 
     let messages = require('./messages');
-    let security = require('./util/security');
     let autoloader = require('./util/autoloader');
     let TelegramBot = require('node-telegram-bot-api');
 
