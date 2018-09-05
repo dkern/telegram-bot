@@ -11,7 +11,7 @@ let storage = {
     users: {},
 
     /**
-     * reads in updated user data to object
+     * reads in updated user data and remove invalid names
      * @return {void}
      */
     updateUsers: () => {

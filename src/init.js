@@ -19,8 +19,8 @@ let init = (botConfig, messagesConfig) => {
     // start bot
     let bot = new TelegramBot(config.bot.token, config.bot.options);
     messages.bot = bot;
-    console.log(messages._('serverStarting', {name: config.bot.name}));
 
+    console.log(messages._('serverStarting', {name: config.bot.name}));
     messages.broadcast.sendMarkdown('started');
     autoloader.registerCommands(bot);
 
