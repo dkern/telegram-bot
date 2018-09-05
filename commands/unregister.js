@@ -30,7 +30,7 @@ module.exports = {
     register: bot => {
         bot.onText(/^\/unregister$/i, msg => {
             storage.removeUser(msg.from.username);
-            messages.sendMarkdown(bot, msg.chat.id, 'unregistered');
+            messages.sendMarkdown(msg.chat.id, 'unregistered');
         });
     }
 };

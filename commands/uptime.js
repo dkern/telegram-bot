@@ -35,7 +35,7 @@ module.exports = {
      */
     register: (bot, messages, security) => {
         bot.onText(/^\/?uptime$/i, msg => {
-            if (!security.check(bot, msg)) {
+            if (!security.check(msg)) {
                 return;
             }
             
@@ -66,7 +66,7 @@ module.exports = {
             stSeconds = stSeconds < 10 ? '0' + stSeconds : stSeconds;
 
             // send
-            messages.sendMarkdown(bot, msg.chat.id, 'uptime', {
+            messages.sendMarkdown(msg.chat.id, 'uptime', {
                 date: stDay + '.' + stMonth + '.' + stYear,
                 time: stHours + ':' + stMinutes + ':' + stSeconds,
                 uptime: upStr

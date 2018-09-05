@@ -1,15 +1,12 @@
 'use strict';
 
-let formatter = require('../formatter');
-
 /**
  * send text message
  * @param {TelegramBot} bot
  * @param {number|string} chatId
- * @param {string} msg
- * @param {object} replaces
+ * @param {string} message
  * @returns {Promise}
  */
-module.exports = (bot, chatId, msg, replaces) => {
-    return bot.sendMessage(chatId, formatter(msg, replaces));
+module.exports = (bot, chatId, message) => {
+    return bot.sendMessage(chatId, message);
 };

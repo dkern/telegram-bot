@@ -18,12 +18,10 @@ let init = (botConfig, messagesConfig) => {
 
     // start bot
     let bot = new TelegramBot(config.bot.token, config.bot.options);
+    messages.bot = bot;
     console.log(messages._('serverStarting', {name: config.bot.name}));
 
-    // register bot on messages functions
-    messages.bot = bot;
-
-    messages.broadcast.sendMarkdown(bot, 'started');
+    messages.broadcast.sendMarkdown('started');
     autoloader.registerCommands(bot);
 
     // on errors
@@ -31,7 +29,7 @@ let init = (botConfig, messagesConfig) => {
 
     // process stop
     process.on('SIGINT', () => {
-        messages.broadcast.sendMarkdown(bot, 'stopped');
+        messages.broadcast.sendMarkdown('stopped');
         console.log(messages._('serverStopping', {name: config.bot.name}));
         setTimeout(() => process.exit(0), 200);
     });

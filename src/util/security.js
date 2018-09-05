@@ -7,24 +7,23 @@ let messages = require('../messages');
 let security = {
     /**
      * checks if a user is allowed and registered
-     * @param {TelegramBot} bot
      * @param {string|number|object} chatId
      * @param {string|object} [username]
      * @returns {boolean}
      */
-    check: (bot, chatId, username) => {
+    check: (chatId, username) => {
         if (!username && Object.prototype.toString.call(chatId) === '[object Object]') {
             username = chatId.from.username;
             chatId = chatId.chat.id;
         }
 
         if (!security.allowed(username)) {
-            messages.sendText(bot, chatId, 'userRejected');
+            messages.sendMarkdown(chatId, 'userRejected');
             return false;
         }
 
         if (!security.registered(username)) {
-            messages.sendText(bot, chatId, 'userUnregistered');
+            messages.sendMarkdown(chatId, 'userUnregistered');
             return false;
         }
 

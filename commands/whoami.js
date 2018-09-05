@@ -38,7 +38,7 @@ module.exports = {
             let message = security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
             let since = security.registeredSince(msg.from.username);
 
-            messages.sendMarkdown(bot, msg.chat.id, message, {
+            messages.sendMarkdown(msg.chat.id, message, {
                 name: msg.from.username,
                 date: since.date,
                 time: since.time

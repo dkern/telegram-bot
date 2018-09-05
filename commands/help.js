@@ -36,7 +36,7 @@ module.exports = {
      */
     register: (bot, messages, security) => {
         bot.onText(/^\/?help$/i, msg => {
-            if (!security.check(bot, msg)) {
+            if (!security.check(msg)) {
                 return;
             }
 
@@ -49,7 +49,7 @@ module.exports = {
                 }
             });
 
-            messages.sendMarkdown(bot, msg.chat.id, help);
+            messages.sendMarkdown(msg.chat.id, help);
         });
     }
 };

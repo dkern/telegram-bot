@@ -34,7 +34,7 @@ module.exports = {
      */
     register: bot => {
         bot.onText(/^\/sayhello$/i, msg => {
-            messages.sendMarkdown(bot, msg.chat.id, 'start', {
+            messages.sendMarkdown(msg.chat.id, 'start', {
                 user: msg.from.username,
                 name: config.bot.name
             });

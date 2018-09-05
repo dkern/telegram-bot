@@ -34,13 +34,13 @@ module.exports = {
     register: (bot, messages, security) => {
         bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
-            messages.sendMarkdown(bot, chatId, 'start', {user: msg.from.username, name: config.bot.name}).then(() => {
+            messages.sendMarkdown(chatId, 'start', {user: msg.from.username, name: config.bot.name}).then(() => {
                 if (!security.allowed(msg)) {
-                    messages.sendText(bot, chatId, 'userRejected');
+                    messages.sendMarkdown(chatId, 'userRejected');
                 } else {
                     // write to cache
                     storage.addUser(msg.from.username, chatId);
-                    messages.sendText(bot, chatId, 'userAllowed').then(() => {
+                    messages.sendMarkdown(chatId, 'userAllowed').then(() => {
                         let help = messages._('help') + '\n\n';
                         let commands = autoloader.getCommands();
 
@@ -50,7 +50,7 @@ module.exports = {
                             }
                         });
 
-                        messages.sendMarkdown(bot, chatId, help);
+                        messages.sendMarkdown(chatId, help);
                     });
                 }
             });
