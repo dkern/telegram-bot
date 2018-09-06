@@ -1,7 +1,8 @@
 'use strict';
 
 /**
- * link telegram bot class
+ * telegram bot wrapper
  * @type {TelegramBotWrapper}
  */
-module.exports = require('./src/class');
+let TelegramBotWrapper = require('./src/class');
+module.exports = TelegramBotWrapper;
