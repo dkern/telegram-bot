@@ -1,6 +1,6 @@
 'use strict';
 
-let merge = require('./util/merge');
+let extend = require('extend');
 
 /**
  * start telegram bot with given configuration
@@ -13,8 +13,8 @@ let init = (botConfig, messagesConfig) => {
     config.bot = botConfig;
 
     // merge messages with default messages
-    merge(config.messages, require('../config/messages'));
-    merge(config.messages, messagesConfig);
+    let defaultMessages = require('../config/messages');
+    extend(config.messages, defaultMessages, messagesConfig);
 
     let messages = require('./messages');
     let autoloader = require('./util/autoloader');
