@@ -96,10 +96,11 @@ let autoloader = {
     /**
      * register commands on bot instance
      * @param {TelegramBot} bot
+     * @param {object} commands
      * @returns {void}
      */
-    registerCommands: (bot) => {
-        Object.keys(autoloader.getCommands()).forEach(name => {
+    registerCommands: (bot, commands) => {
+        Object.keys(commands).forEach(name => {
             commands[name].register(bot, messages, security);
             console.log(messages._('serverRegisterCmd', {cmd: name}));
         });
