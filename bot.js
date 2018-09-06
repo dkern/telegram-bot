@@ -1,2 +1,6 @@
 'use strict';
-module.exports = require('./src/init');
+
+let config = require('./config/bot');
+let messages = require('./config/messages');
+
+module.exports = require('./')(config, messages);

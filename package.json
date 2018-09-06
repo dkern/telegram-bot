@@ -3,7 +3,7 @@
   "title": "Telegram Bot",
   "version": "0.1.0",
   "description": "Easy, lightweight and extendable Telegram Bot for your needs.",
-  "main": "package.json",
+  "main": "index.js",
   "homepage": "https://github.com/eisbehr-/telegram-bot",
   "bugs": "https://github.com/eisbehr-/telegram-bot/issues",
   "author": {
