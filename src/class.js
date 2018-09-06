@@ -8,7 +8,7 @@ let extend = require('extend');
  * @param {object} messagesConfig
  * @returns {object}
  */
-let init = (botConfig, messagesConfig) => {
+let TelegramBot = function(botConfig, messagesConfig) {
     let config = require('./config');
     config.bot = botConfig;
 
@@ -38,12 +38,10 @@ let init = (botConfig, messagesConfig) => {
         setTimeout(() => process.exit(0), 200);
     });
 
-    return {
-        bot: (init.bot = bot),
-        config: (init.config = config),
-        messages: (init.messages = messages),
-        autoloader: (init.autoloader = autoloader)
-    };
+    this.bot = bot;
+    this.config = config;
+    this.messages = messages;
+    this.autoloader = autoloader;
 };
 
-module.exports = init;
+module.exports = TelegramBot;

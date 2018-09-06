@@ -2,5 +2,6 @@
 
 let config = require('./config/bot');
 let messages = require('./config/messages');
+let TelegramBot = require('./');
 
-module.exports = require('./')(config, messages);
+module.exports = new TelegramBot(config, messages);

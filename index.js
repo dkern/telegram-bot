@@ -1,2 +1,2 @@
 'use strict';
-module.exports = require('./src/init');
+module.exports = require('./src/class');
