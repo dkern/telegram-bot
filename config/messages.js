@@ -7,28 +7,25 @@ module.exports = {
     serverRegisterCmd: 'Command \'${cmd}\' registered ...',
 
     // default messages
-    started: '✅ Mein Dienst wurde gestartet. Ich stehe wieder zur Verfügung.',
-    stopped: '❌ Meine Systeme werden heruntergefahren. Ich stehe momentan nicht weiter zur Verfügung.',
+    started: '✅ Bot Service started.',
+    stopped: '❌ Bot Service is shutting down.',
 
     // user authentication
-    userAllowed: 'Ich freue mich dich registreiren zu dürfen! 👍 Ich habe die Freigabe, dir ab sofort benötigte Informationen zukommen zu lassen.',
-    userUnregistered: 'Du musst dich anmelden, um mit mir zu sprechen. Nutze den /start Befehl dazu!',
+    userAllowed: 'You are registered now. Feel free to talk with me now.',
+    userUnregistered: 'You need to register yourself, to speak with me. Use /start command for this.',
     userRejected: [
-        '❌ Ich habe leider keine Freigabe, um mit dir zu sprechen. Bitte wende dich an meinen Entwickler. Du weißt schon.',
-        '❌ Permission denied.',
-        '❌ Für dich ist leider keine Sicherheitsfreigabe vorhanden. Ich darf nicht mit dir sprechen.',
-        '❌ Ich kenne dich nicht, daher antworte ich dir auch nicht.',
-        '❌ Meine Firewall blockiert dich weiterhin.',
-        '❌ Wenn du Informationen von mir haben möchtest, sprich zuerst mit meinem Besitzer.'
+        'I don\'t have an permission to speak with you.',
+        'Permission denied.',
+        'I didn\'t know you, so I wouldn\'t respond to your requests.'
     ],
 
     // command responses
-    start: 'Hallo ${user}! 👋 Ich bin *${name}*, Eisbehr\'s persönlicher Homebot. Ich habe Kontrolle über alle Haus-Systeme und verteile wenn nötig Informationen. 🏡',
-    help: '*Du brauchst Hilfe?*\n\nMit folgenden Kommandos kannst du mir Befehle erteilen oder Informationen anfragen:',
-    unregistered: 'Bestätigt. Du erhälst keine weiteren Updates von mir. 🙅🏼‍♂️',
-    uptime: 'Meine Dienste wurden am *${date}* um *${time}* Uhr initialisiert. Somit bin ich seit *${uptime}* aktiv. ⏱',
-    whoamiRegistered: 'Du bist *${name}* und ich habe dich seit dem *${date}* um *${time}* Uhr registriert. 🔍',
-    whoamiUnregistered: 'Du bist *${name}*, ich kann allerdings keine Daten zu dir finden. 🤔 Ich glaube du bist nicht registriert. Nutze /start, um dich anzumelden.',
+    start: 'Hello ${user}! I\'m *${name}*, your personal Telegram bot.',
+    help: '*Do you need help?*\n\nUse the following commands to interact with me:',
+    unregistered: 'Confirmed. You are unregistered now.️',
+    uptime: 'My service was started *${date}* at *${time}* o\'clock, meaning I\'m up for *${uptime}*.',
+    whoamiRegistered: 'You\'re *${name}* and I know you since *${date}* at *${time}* o\'clock.',
+    whoamiUnregistered: 'You\'re *${name}*, but I doesn\'t know anymore about you. I think you are not registered by now. Use /start command to register yourself.',
 
     // command help
     cmdHelp: 'prints this help',
