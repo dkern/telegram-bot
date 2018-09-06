@@ -39,9 +39,7 @@ let autoloader = {
 
             autoloader.addCommandsDir(dir);
         }
-        catch(e) {
-            console.log(e);
-        }
+        catch(e) {}
 
         return commands;
     },
