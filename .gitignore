@@ -8,6 +8,5 @@
 
 .idea
 node_modules
-config/bot.js
 tmp
 _test
