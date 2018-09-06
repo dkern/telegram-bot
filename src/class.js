@@ -8,7 +8,7 @@ let extend = require('extend');
  * @param {object} messagesConfig
  * @returns {object}
  */
-let TelegramBot = function(botConfig, messagesConfig) {
+let TelegramBotWrapper = function(botConfig, messagesConfig) {
     let config = require('./config');
     config.bot = botConfig;
 
@@ -44,4 +44,36 @@ let TelegramBot = function(botConfig, messagesConfig) {
     this.autoloader = autoloader;
 };
 
-module.exports = TelegramBot;
+/**
+ * get telegram bot instance
+ * @return {TelegramBot}
+ */
+TelegramBotWrapper.prototype.getBot = function() {
+    return this.bot;
+};
+
+/**
+ * get config object
+ * @return {object}
+ */
+TelegramBotWrapper.prototype.getConfig = function() {
+    return this.config;
+};
+
+/**
+ * get messages object
+ * @returns {object}
+ */
+TelegramBotWrapper.prototype.getMessages = function() {
+    return this.messages;
+};
+
+/**
+ * get autoloader object
+ * @return {object}
+ */
+TelegramBotWrapper.prototype.getAutoloader = function() {
+    return this.autoloader;
+};
+
+module.exports = TelegramBotWrapper;
