@@ -22,7 +22,7 @@ let init = (botConfig, messagesConfig) => {
 
     console.log(messages._('serverStarting', {name: config.bot.name}));
     messages.broadcast.sendMarkdown('started');
-    autoloader.registerCommands(bot);
+    autoloader.registerCommands(bot, autoloader.getCommands());
 
     // on errors
     bot.on('polling_error', err => console.log(err));
