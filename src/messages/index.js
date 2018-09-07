@@ -170,4 +170,4 @@ Messages.prototype.broadcast = {
     },
 };
 
-module.exports = messages;
+module.exports = Messages;
