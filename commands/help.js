@@ -1,14 +1,10 @@
 'use strict';
 
-let messages = require('../src/messages');
-let autoloader = require('../src/util/autoloader');
-
 /**
  * help command
- * @param {TelegramBot} bot
- * @returns void
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
  */
-module.exports = {
+let Command = {
     /**
      * command as string, used for help print
      * @type {string}
@@ -19,7 +15,7 @@ module.exports = {
      * command description, used for help
      * @type {string}
      */
-    description: messages.config.cmdHelp,
+    description: 'prints help',
 
     /**
      * show command in help message
@@ -29,19 +25,21 @@ module.exports = {
 
     /**
      * command register handler
-     * @param {TelegramBot} bot
-     * @param {object} messages
-     * @param {object} security
+     * @param {TelegramBotWrapper} instance
      * @returns {void}
      */
-    register: (bot, messages, security) => {
-        bot.onText(/^\/?help$/i, msg => {
-            if (!security.check(msg)) {
+    register: instance => {
+        // overwrite description by instance messages
+        Command.description = instance.messages._('cmdHelp');
+
+        // register command on bot
+        instance.bot.onText(/^\/?help$/i, msg => {
+            if (!instance.security.check(msg)) {
                 return;
             }
 
-            let help = messages._('help') + '\n\n';
-            let commands = autoloader.getCommands();
+            let help = instance.messages._('help') + '\n\n';
+            let commands = instance.autoloader.getRegisteredCommands();
 
             Object.keys(commands).forEach(name => {
                 if (commands[name].showInHelp) {
@@ -49,7 +47,9 @@ module.exports = {
                 }
             });
 
-            messages.sendMarkdown(msg.chat.id, help);
+            instance.messages.sendMarkdown(msg.chat.id, help);
         });
     }
 };
+
+module.exports = Command;

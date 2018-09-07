@@ -1,13 +1,10 @@
 'use strict';
 
-let messages = require('../src/messages');
-
 /**
  * who am i command
- * @param {TelegramBot} bot
- * @returns void
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
  */
-module.exports = {
+let Command = {
     /**
      * command as string, used for help print
      * @type {string}
@@ -18,7 +15,7 @@ module.exports = {
      * command description, used for help
      * @type {string}
      */
-    description: messages.config.cmdWhoAmI,
+    description: 'details about you',
 
     /**
      * show command in help message
@@ -28,17 +25,19 @@ module.exports = {
 
     /**
      * command register handler
-     * @param {TelegramBot} bot
-     * @param {object} messages
-     * @param {object} security
+     * @param {TelegramBotWrapper} instance
      * @returns {void}
      */
-    register: (bot, messages, security) => {
-        bot.onText(/^\/whoami$/i, msg => {
-            let message = security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
-            let since = security.registeredSince(msg.from.username);
+    register: instance => {
+        // overwrite description by instance messages
+        Command.description = instance.messages._('cmdWhoAmI');
 
-            messages.sendMarkdown(msg.chat.id, message, {
+        // register command on bot
+        instance.bot.onText(/^\/whoami$/i, msg => {
+            let message = instance.security.registered(msg.from.username) ? 'whoamiRegistered' : 'whoamiUnregistered';
+            let since = instance.security.registeredSince(msg.from.username);
+
+            instance.messages.sendMarkdown(msg.chat.id, message, {
                 name: msg.from.username,
                 date: since.date,
                 time: since.time
@@ -46,3 +45,5 @@ module.exports = {
         });
     }
 };
+
+module.exports = Command;

@@ -1,24 +1,34 @@
 'use strict';
 
-let config = require('../config');
+/**
+ * message formation helper
+ * @param messages
+ * @constructor
+ */
+let Formatter = function(messages) {
+    this.messages = messages;
+};
 
 /**
  * formatter for replaces in messages
- * @param {string} msg
+ * @param {string|Array} message
  * @param {object} [replaces]
  * @returns string
  */
-module.exports = (msg, replaces) => {
-    msg = config.messages[msg] || msg;
+Formatter.prototype._ = function(message, replaces) {
+    message = this.messages[message] || message;
 
     // select random message if is an array
-    if (Array.isArray(msg)) {
-        msg = msg[Math.floor(Math.random() * msg.length)];
+    if (Array.isArray(message)) {
+        message = message[Math.floor(Math.random() * message.length)];
     }
 
+    // replace values
     Object.keys(replaces || {}).forEach(key => {
-        msg = msg.replace('${' + key + '}', replaces[key]);
+        message = message.replace('${' + key + '}', replaces[key]);
     });
 
-    return msg;
+    return message;
 };
+
+module.exports = Formatter;

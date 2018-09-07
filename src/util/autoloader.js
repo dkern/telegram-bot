@@ -2,122 +2,134 @@
 
 let fs = require('fs');
 let path = require('path');
-let messages = require('../messages');
-let security = require('./security');
-
-let commands = {};
 
 /**
- * autoloader functions
- * @type {object}
+ * commands autoloader
+ * @param {TelegramBotWrapper} instance
+ * @constructor
  */
-let autoloader = {
-    /**
-     * allocates all command files
-     * @returns {object}
-     */
-    getCommands: () => {
-        if (commands.length) {
-            return commands;
-        }
+let Autoloader = function(instance) {
+    this.commands = {};
 
-        // check for default commands
-        try {
-            let dir = require.resolve('telegram-bot');
-            autoloader.addCommandsDir(path.dirname(dir) + '/commands');
-        }
-        catch(e) {}
-
-        // check for local commands directory
-        try {
-            let dir = process.cwd() + '/commands';
-
-            if (!fs.lstatSync(dir).isDirectory()) {
-                //noinspection ExceptionCaughtLocallyJS
-                throw new Error();
-            }
-
-            autoloader.addCommandsDir(dir);
-        }
-        catch(e) {}
-
-        return commands;
-    },
-
-    /**
-     * add a directory of commands
-     * @param {string} dir
-     * @return {object}
-     */
-    addCommandsDir: dir => {
-        try {
-            if (!fs.lstatSync(dir).isDirectory()) {
-                //noinspection ExceptionCaughtLocallyJS
-                throw new Error();
-            }
-
-            autoloader.fileLocator(dir);
-        }
-        catch(e) {
-            console.log(e);
-        }
-
-        return commands;
-    },
-
-    /**
-     * add a command manually to bot instance
-     * @param {string} name
-     * @param {object} cmd
-     * @returns {object}
-     */
-    addCommand: (name, cmd) => {
-        if (!cmd.register) {
-            throw new Error('command object of \'' + name + '\' needs a \'register\' function');
-        }
-
-        if(cmd.showInHelp) {
-            if (!cmd.cmd) {
-                console.log('command object of \'' + name + '\' should have \'cmd\' property set');
-            }
-
-            if (!cmd.description) {
-                console.log('command object of \'' + name + '\' should have \'description\' property set');
-            }
-        }
-
-        commands[name] = cmd;
-
-        return commands;
-    },
-
-    /**
-     * register commands on bot instance
-     * @param {TelegramBot} bot
-     * @param {object} commands
-     * @returns {void}
-     */
-    registerCommands: (bot, commands) => {
-        Object.keys(commands).forEach(name => {
-            commands[name].register(bot, messages, security);
-            console.log(messages._('serverRegisterCmd', {cmd: name}));
-        });
-    },
-
-    /**
-     * helper function to load all files in an directory
-     * @access private
-     * @param {string} filesDir
-     * @returns {void}
-     */
-    fileLocator: (filesDir) => {
-        fs.readdirSync(filesDir).forEach(file => {
-            if (path.extname(file) === '.js') {
-                let fileName = path.basename(file, '.js');
-                autoloader.addCommand(fileName, require(filesDir + '/' + fileName));
-            }
-        });
-    }
+    this.instance = instance;
+    this.bot = instance.bot;
+    this.messages = instance.messages;
 };
 
-module.exports = autoloader;
+/**
+ * get all loaded commands (not registered!)
+ * @returns {object}
+ */
+Autoloader.prototype.getLoadedCommands = function() {
+    return this.commands;
+};
+
+/**
+ * get all loaded commands (not registered!)
+ * @returns {object}
+ */
+Autoloader.prototype.getRegisteredCommands = function() {
+    let registered = {};
+
+    Object.keys(this.commands).forEach(name => {
+        if (this.commands[name].registered) {
+            registered[name] = this.commands[name]; 
+        }
+    });
+
+    return registered;
+};
+
+/**
+ * add a directory of commands
+ * @param {string} directory
+ * @param {boolean} [noError]
+ * @return {object}
+ */
+Autoloader.prototype.addCommandsDir = function(directory, noError) {
+    try {
+        if (fs.lstatSync(directory).isDirectory()) {
+            this.fileLocator(directory);
+        }
+    }
+    catch(e) {
+        if (!noError) {
+            console.log(e);
+        }
+    }
+
+    return this.commands;
+};
+
+/**
+ * add a command manually to bot instance
+ * @param {string} name
+ * @param {object} command
+ * @returns {boolean}
+ */
+Autoloader.prototype.addCommand = function(name, command) {
+    if (command.registered) {
+        console.log(this.messages._('commandAlreadyRegistered', {name: name}));
+        return false;
+    }
+
+    if (!command.register) {
+        console.log(this.messages._('commandMissingRegister', {name: name}));
+        return false;
+    }
+
+    if (command.showInHelp) {
+        if (!cmd.cmd) {
+            console.log(this.messages._('commandCmdNotice', {name: name}));
+        }
+
+        if (!command.description) {
+            console.log(this.messages._('commandDescriptionNotice', {name: name}));
+        }
+    }
+
+    this.commands[name] = command;
+    return true;
+};
+
+/**
+ * register commands on bot instance
+ * @returns {void}
+ */
+Autoloader.prototype.registerCommands = function() {
+    Object.keys(this.commands).forEach(name => {
+        let command = this.commands[name];
+
+        if (!command.registered) {
+            command.register(this.instance);
+            command.registered = true;
+
+            console.log(this.messages._('serverRegisterCmd', {cmd: name}));
+        }
+    });
+};
+
+/**
+ * helper function to load all files in an directory
+ * @access private
+ * @param {string} directory
+ * @returns {void}
+ */
+Autoloader.prototype.fileLocator = function(directory) {
+    let loaded = {};
+
+    fs.readdirSync(directory).forEach(file => {
+        if (path.extname(file) === '.js') {
+            let fileName = path.basename(file, '.js');
+            let command = require(directory + '/' + fileName);
+
+            if (this.addCommand(fileName, command)) {
+                loaded[name] = command;
+            }
+        }
+    });
+
+    return loaded;
+};
+
+module.exports = Autoloader;

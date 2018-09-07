@@ -1,6 +1,13 @@
 'use strict';
 
-let extend = require('extend');
+let path = require('path');
+let Config = require('./config');
+let Storage = require('./storage');
+let Messages = require('./messages');
+let Security = require('./util/security');
+let Autoloader = require('./util/autoloader');
+let TelegramBot = require('node-telegram-bot-api');
+let defaultMessages = require('../config/messages');
 
 /**
  * start telegram bot with given configuration
@@ -9,44 +16,52 @@ let extend = require('extend');
  * @returns {object}
  */
 let TelegramBotWrapper = function(botConfig, messagesConfig) {
-    let config = require('./config');
-    config.bot = botConfig;
+    // suppress deprecation log;
+    process.env.NTBA_FIX_319 = true;
 
-    // merge messages with default messages
-    let defaultMessages = require('../config/messages');
-    extend(config.messages, defaultMessages, messagesConfig);
+    // get configuration instance
+    this.config = new Config(botConfig, defaultMessages, messagesConfig);
 
-    let messages = require('./messages');
-    let autoloader = require('./util/autoloader');
-    let TelegramBot = require('node-telegram-bot-api');
+    // start bot and initialize sub-classes
+    this.bot = new TelegramBot(this.config.bot.token, this.config.bot.options);
+    this.storage = new Storage(this.config.bot.storage.directory, this.config.bot.storage.file);
+    this.security = new Security(this.config, this.messages, this.storage);
+    this.messages = new Messages(this.bot, this.config.messages, this.storage);
+    this.autoloader = new Autoloader(this) ;
 
-    // start bot
-    let bot = new TelegramBot(config.bot.token, config.bot.options);
-    messages.bot = bot;
-
-    console.log(messages._('serverStarting', {name: config.bot.name}));
+    console.log(messages._('serverStarting', {name: this.config.bot.name}));
     messages.broadcast.sendMarkdown('started');
-    autoloader.registerCommands(bot, autoloader.getCommands());
 
     // on errors
-    bot.on('polling_error', err => console.log(err));
+    this.bot.on('polling_error', err => console.log(err));
 
     // process stop
     process.on('SIGINT', () => {
         messages.broadcast.sendMarkdown('stopped');
-        console.log(messages._('serverStopping', {name: config.bot.name}));
+        console.log(messages._('serverStopping', {name: this.config.bot.name}));
         setTimeout(() => process.exit(0), 200);
     });
 
-    this.bot = bot;
-    this.config = config;
-    this.messages = messages;
-    this.autoloader = autoloader;
+    // add core commands
+    let module = require.resolve('telegram-bot');
+    this.autoloader.addCommandsDir(path.dirname(module) + '/commands');
+
+    // add commands from cwd
+    let cwd = process.cwd() + '/commands';
+    this.autoloader.addCommandsDir(cwd);
+};
+
+/**
+ * start message handling
+ * @returns {void}
+ */
+TelegramBotWrapper.prototype.register = function() {
+    this.autoloader.registerCommands();
 };
 
 /**
  * get telegram bot instance
- * @return {TelegramBot}
+ * @returns {TelegramBot}
  */
 TelegramBotWrapper.prototype.getBot = function() {
     return this.bot;
@@ -54,14 +69,30 @@ TelegramBotWrapper.prototype.getBot = function() {
 
 /**
  * get config object
- * @return {object}
+ * @returns {object}
  */
 TelegramBotWrapper.prototype.getConfig = function() {
     return this.config;
 };
 
 /**
- * get messages object
+ * get storage instance
+ * @returns {Storage}
+ */
+TelegramBotWrapper.prototype.getStorage = function() {
+    return this.storage;
+};
+
+/**
+ * get security instance
+ * @returns {Security}
+ */
+TelegramBotWrapper.prototype.getSecurity = function() {
+    return this.security;
+};
+
+/**
+ * get messages instance
  * @returns {object}
  */
 TelegramBotWrapper.prototype.getMessages = function() {
@@ -69,8 +100,8 @@ TelegramBotWrapper.prototype.getMessages = function() {
 };
 
 /**
- * get autoloader object
- * @return {object}
+ * get autoloader instance
+ * @returns {object}
  */
 TelegramBotWrapper.prototype.getAutoloader = function() {
     return this.autoloader;

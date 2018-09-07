@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * send text message
+ * send photo
  * @param {TelegramBot} bot
  * @param {number|string} chatId
  * @param {string|stream.Stream|Buffer} photo

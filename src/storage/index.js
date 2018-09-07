@@ -1,73 +1,77 @@
 'use strict';
 
-let reader = require('./reader');
-let writer = require('./writer');
+let Reader = require('./reader');
+let Writer = require('./writer');
+let datetime = require('../util/datetime');
 
-let storage = {
-    /**
-     * users
-     * @type {*}
-     */
-    users: {},
+/**
+ * user registration storage class
+ * @constructor
+ */
+let Storage = function(dir, file) {
+    this.users = {};
+    this.reader = new Reader(dir, file);
+    this.writer = new Writer(dir, file);
 
-    /**
-     * reads in updated user data and remove invalid names
-     * @return {void}
-     */
-    updateUsers: () => {
-        storage.users = reader.readUsers();
-    },
-
-    /**
-     * adds a new user
-     * @param {string} username
-     * @param {string|number} chatId
-     * @return {void}
-     */
-    addUser: (username, chatId) => {
-        storage.updateUsers();
-
-        if (!storage.users[username]) {
-            let now = new Date();
-            let day = now.getDate();
-            let month = now.getMonth() + 1;
-            let year = now.getFullYear();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-
-            day = day < 10 ? '0' + day : day;
-            month = month < 10 ? '0' + month : month;
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            storage.users[username] = {
-                chatId: chatId,
-                date: day + '.' + month + '.' + year,
-                time: hours + ':' + minutes + ':' + seconds,
-            };
-        }
-        else {
-            storage.users[username].chatId = chatId;
-        }
-
-        writer.writeUsers(storage.users);
-    },
-
-    /**
-     * removes a user
-     * @param {string} username
-     * @return {void}
-     */
-    removeUser: username => {
-        storage.updateUsers();
-        delete storage.users[username];
-        writer.writeUsers(storage.users);
-    },
+    this.updateUsers();
 };
 
-// initial read-in
-storage.updateUsers();
+/**
+ * get current users object
+ * @returns {object}
+ */
+Storage.prototype.getUsers = function() {
+    return this.users;
+};
 
-module.exports = storage;
+/**
+ * get current users object
+ * @returns {object}
+ */
+Storage.prototype.getUser = function(username) {
+    return this.users[username];
+};
+
+/**
+ * reads in updated user data and remove invalid names
+ * @return {void}
+ */
+Storage.prototype.updateUsers = function() {
+    this.users = this.reader.readUsers();
+};
+
+/**
+ * adds a new user
+ * @param {string} username
+ * @param {string|number} chatId
+ * @return {void}
+ */
+Storage.prototype.addUser = function(username, chatId) {
+    this.updateUsers();
+
+    if (!this.users[username]) {
+        this.users[username] = {
+            chatId: chatId,
+            date: datetime.getDate(),
+            time: datetime.getTime(),
+        };
+    }
+    else {
+        this.users[username].chatId = chatId;
+    }
+
+    this.writer.writeUsers(this.users);
+};
+
+/**
+ * removes a user
+ * @param {string} username
+ * @return {void}
+ */
+Storage.prototype.removeUser = function(username) {
+    this.updateUsers();
+    delete this.users[username];
+    this.writer.writeUsers(storage.users);
+};
+
+module.exports = Storage;

@@ -1,14 +1,10 @@
 'use strict';
 
-let config = require('../src/config');
-let messages = require('../src/messages');
-
 /**
  * say hello command
- * @param {TelegramBot} bot
- * @returns void
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
  */
-module.exports = {
+let Command = {
     /**
      * command as string, used for help print
      * @type {string}
@@ -19,7 +15,7 @@ module.exports = {
      * command description, used for help
      * @type {string}
      */
-    description: messages.config.cmdSayHello,
+    description: 'say hello',
 
     /**
      * show command in help message
@@ -29,15 +25,21 @@ module.exports = {
 
     /**
      * command register handler
-     * @param {TelegramBot} bot
+     * @param {TelegramBotWrapper} instance
      * @returns {void}
      */
-    register: bot => {
-        bot.onText(/^\/sayhello$/i, msg => {
-            messages.sendMarkdown(msg.chat.id, 'start', {
+    register: instance => {
+        // overwrite description by instance messages
+        Command.description = instance.messages._('cmdSayHello');
+
+        // register command on bot
+        instance.bot.onText(/^\/sayhello$/i, msg => {
+            instance.messages.sendMarkdown(msg.chat.id, 'start', {
                 user: msg.from.username,
-                name: config.bot.name
+                name: instance.config.bot.name
             });
         });
     }
 };
+
+module.exports = Command;

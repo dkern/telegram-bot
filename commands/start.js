@@ -1,11 +1,10 @@
 'use strict';
 
-let config = require('../src/config');
-let messages = require('../src/messages');
-let storage = require('../src/storage');
-let autoloader = require('../src/util/autoloader');
-
-module.exports = {
+/**
+ * start command
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
+ */
+let Command = {
     /**
      * command as string, used for help print
      * @type {string}
@@ -16,7 +15,7 @@ module.exports = {
      * command description, used for help
      * @type {string}
      */
-    description: messages.config.cmdStart,
+    description: 'starts interacting',
 
     /**
      * show command in help message
@@ -26,23 +25,25 @@ module.exports = {
 
     /**
      * command handler
-     * @param {TelegramBot} bot
-     * @param {object} messages
-     * @param {object} security
+     * @param {TelegramBotWrapper} instance
      * @returns {void}
      */
-    register: (bot, messages, security) => {
-        bot.onText(/^\/start$/i, msg => {
+    register: instance => {
+        // overwrite description by instance messages
+        Command.description = instance.messages._('cmdStart');
+
+        // register command on bot
+        instance.bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
-            messages.sendMarkdown(chatId, 'start', {user: msg.from.username, name: config.bot.name}).then(() => {
-                if (!security.allowed(msg)) {
-                    messages.sendMarkdown(chatId, 'userRejected');
+            instance.messages.sendMarkdown(chatId, 'start', {user: msg.from.username, name: instance.config.bot.name}).then(() => {
+                if (!instance.security.allowed(msg)) {
+                    instance.messages.sendMarkdown(chatId, 'userRejected');
                 } else {
                     // write to cache
-                    storage.addUser(msg.from.username, chatId);
-                    messages.sendMarkdown(chatId, 'userAllowed').then(() => {
+                    instance.storage.addUser(msg.from.username, chatId);
+                    instance.messages.sendMarkdown(chatId, 'userAllowed').then(() => {
                         let help = messages._('help') + '\n\n';
-                        let commands = autoloader.getCommands();
+                        let commands = instance.autoloader.getRegisteredCommands();
 
                         Object.keys(commands).forEach(name => {
                             if (commands[name].showInHelp) {
@@ -50,10 +51,12 @@ module.exports = {
                             }
                         });
 
-                        messages.sendMarkdown(chatId, help);
+                        instance.messages.sendMarkdown(chatId, help);
                     });
                 }
             });
         });
     }
 };
+
+module.exports = Command;

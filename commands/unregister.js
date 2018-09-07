@@ -1,9 +1,10 @@
 'use strict';
 
-let messages = require('../src/messages');
-let storage = require('../src/storage');
-
-module.exports = {
+/**
+ * unregister command
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
+ */
+let Command = {
     /**
      * command as string, used for help print
      * @type {string}
@@ -14,7 +15,7 @@ module.exports = {
      * command description, used for help
      * @type {string}
      */
-    description: messages.config.cmdUnregister,
+    description: 'unregister yourself',
 
     /**
      * show command in help message
@@ -24,13 +25,19 @@ module.exports = {
 
     /**
      * command handler
-     * @param {TelegramBot} bot
+     * @param {TelegramBotWrapper} instance
      * @returns {void}
      */
-    register: bot => {
-        bot.onText(/^\/unregister$/i, msg => {
-            storage.removeUser(msg.from.username);
-            messages.sendMarkdown(msg.chat.id, 'unregistered');
+    register: instance => {
+        // overwrite description by instance messages
+        Command.description = instance.messages._('cmdUnregister');
+
+        // register command on bot
+        instance.bot.onText(/^\/unregister$/i, msg => {
+            instance.storage.removeUser(msg.from.username);
+            instance.messages.sendMarkdown(msg.chat.id, 'unregistered');
         });
     }
 };
+
+module.exports = Command;

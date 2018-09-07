@@ -37,5 +37,23 @@ module.exports = {
      */
     options: {
         polling: true
+    },
+
+    /**
+     * storage settings
+     * @type {*}
+     */
+    storage: {
+        /**
+         * storage directory, relative from process.cwd()
+         * @type {string}
+         */
+        directory: '/tmp',
+
+        /**
+         * storage file
+         * @type {string}
+         */
+        file: 'registered.json',
     }
 };

@@ -5,6 +5,10 @@ module.exports = {
     serverStarting: '${name} is running ...',
     serverStopping: '${name} is shutting down ...',
     serverRegisterCmd: 'Command \'${cmd}\' registered ...',
+    commandAlreadyRegistered: 'command object of \'${name}\' already registered',
+    commandMissingRegister: 'command object of \'${name}\' needs a \'register\' function',
+    commandCmdNotice: 'command object of \'${name}\' should have \'cmd\' property set',
+    commandDescriptionNotice: 'command object of \'${name}\' should have \'description\' property set',
 
     // default messages
     started: '✅ Bot Service started.',
