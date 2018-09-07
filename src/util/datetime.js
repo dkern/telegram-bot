@@ -7,7 +7,7 @@ module.exports = {
      * @returns {string}
      */
     getDate: timestamp => {
-        let now = timestamp ? Date.now() : new Date(timestamp);
+        let now = timestamp ? new Date(timestamp) : Date.now();
         let day = now.getDate();
         let month = now.getMonth() + 1;
         let year = now.getFullYear();
@@ -24,7 +24,7 @@ module.exports = {
      * @returns {string}
      */
     getTime: timestamp => {
-        let now = timestamp ? Date.now() : new Date(timestamp);
+        let now = timestamp ? new Date(timestamp) : Date.now();
         let hours = now.getHours();
         let minutes = now.getMinutes();
         let seconds = now.getSeconds();
