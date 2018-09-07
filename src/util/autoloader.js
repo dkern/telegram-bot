@@ -103,7 +103,7 @@ Autoloader.prototype.registerCommands = function() {
         let command = this.commands[name];
 
         if (!command.registered) {
-            command.register(this.instance);
+            command.register.bind(this.instance)(this.instance);
             command.registered = true;
 
             console.log(this.messages._('serverRegisterCmd', {cmd: name}));

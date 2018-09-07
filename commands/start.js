@@ -42,7 +42,7 @@ let Command = {
                     // write to cache
                     instance.storage.addUser(msg.from.username, chatId);
                     instance.messages.sendMarkdown(chatId, 'userAllowed').then(() => {
-                        let help = messages._('help') + '\n\n';
+                        let help = instance.messages._('help') + '\n\n';
                         let commands = instance.autoloader.getRegisteredCommands();
 
                         Object.keys(commands).forEach(name => {
