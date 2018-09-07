@@ -6,14 +6,16 @@ let path = require('path');
 /**
  * commands autoloader
  * @param {TelegramBotWrapper} instance
+ * @param {TelegramBot} bot
+ * @param {Messages} messages
  * @constructor
  */
-let Autoloader = function(instance) {
+let Autoloader = function(instance, bot, messages) {
     this.commands = {};
 
     this.instance = instance;
-    this.bot = instance.bot;
-    this.messages = instance.messages;
+    this.bot = bot;
+    this.messages = messages;
 };
 
 /**
@@ -124,7 +126,7 @@ Autoloader.prototype.fileLocator = function(directory) {
             let command = require(directory + '/' + fileName);
 
             if (this.addCommand(fileName, command)) {
-                loaded[name] = command;
+                loaded[fileName] = command;
             }
         }
     });

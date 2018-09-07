@@ -27,7 +27,7 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
     this.storage = new Storage(this.config.bot.storage.directory, this.config.bot.storage.file);
     this.security = new Security(this.config, this.messages, this.storage);
     this.messages = new Messages(this.bot, this.config.messages, this.storage);
-    this.autoloader = new Autoloader(this) ;
+    this.autoloader = new Autoloader(this, this.bot, this.messages) ;
 
     console.log(this.messages._('serverStarting', {name: this.config.bot.name}));
     this.messages.broadcast.sendMarkdown('started');
@@ -44,8 +44,11 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
     });
 
     // add core commands
-    let module = require.resolve('telegram-bot');
-    this.autoloader.addCommandsDir(path.dirname(module) + '/commands');
+    try {
+        let module = require.resolve('telegram-bot');
+        this.autoloader.addCommandsDir(path.dirname(module) + '/commands');
+    }
+    catch(e) {}
 
     // add commands from cwd
     let cwd = process.cwd() + '/commands';
