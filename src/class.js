@@ -29,16 +29,17 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
     this.messages = new Messages(this.bot, this.config.messages, this.storage);
     this.autoloader = new Autoloader(this) ;
 
-    console.log(messages._('serverStarting', {name: this.config.bot.name}));
-    messages.broadcast.sendMarkdown('started');
+    console.log(this.messages._('serverStarting', {name: this.config.bot.name}));
+    this.messages.broadcast.sendMarkdown('started');
 
     // on errors
     this.bot.on('polling_error', err => console.log(err));
 
     // process stop
+    let instance = this;
     process.on('SIGINT', () => {
-        messages.broadcast.sendMarkdown('stopped');
-        console.log(messages._('serverStopping', {name: this.config.bot.name}));
+        instance.messages.broadcast.sendMarkdown('stopped');
+        console.log(instance.messages._('serverStopping', {name: instance.config.bot.name}));
         setTimeout(() => process.exit(0), 200);
     });
 
