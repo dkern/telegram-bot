@@ -71,7 +71,7 @@ Storage.prototype.addUser = function(username, chatId) {
 Storage.prototype.removeUser = function(username) {
     this.updateUsers();
     delete this.users[username];
-    this.writer.writeUsers(storage.users);
+    this.writer.writeUsers(this.storage.users);
 };
 
 module.exports = Storage;
