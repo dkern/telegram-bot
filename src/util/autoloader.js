@@ -79,7 +79,7 @@ Autoloader.prototype.addCommand = function(name, command) {
     }
 
     if (command.showInHelp) {
-        if (!cmd.cmd) {
+        if (!command.cmd) {
             console.log(this.messages._('commandCmdNotice', {name: name}));
         }
 
