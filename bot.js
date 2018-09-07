@@ -4,4 +4,7 @@ let config = require('./config/bot');
 let messages = require('./config/messages');
 let TelegramBotWrapper = require('./');
 
-module.exports = new TelegramBotWrapper(config, messages);
+let instance = new TelegramBotWrapper(config, messages);
+instance.register();
+
+module.exports = instance;
