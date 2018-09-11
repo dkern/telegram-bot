@@ -2,7 +2,7 @@
   "name": "telegram-bot",
   "title": "Telegram Bot",
   "version": "0.1.0",
-  "description": "Easy, lightweight and extendable Telegram Bot for your needs.",
+  "description": "Easy, lightweight and extendable Telegram Chat Bot for your needs.",
   "main": "index.js",
   "homepage": "https://github.com/eisbehr-/telegram-bot",
   "bugs": "https://github.com/eisbehr-/telegram-bot/issues",
@@ -16,7 +16,6 @@
     "url": "git@github.com:eisbehr-/telegram-bot.git"
   },
   "keywords": [
-    "minoss",
     "telegram",
     "bot"
   ],
@@ -34,5 +33,14 @@
   "dependencies": {
     "extend": "^3.0.2",
     "node-telegram-bot-api": "^0.30.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-jshint": "^2.1.0",
+    "jshint": "^2.9.6",
+    "jshint-stylish": "^2.2.1"
+  },
+  "scripts": {
+    "start": "node bot.js"
   }
 }

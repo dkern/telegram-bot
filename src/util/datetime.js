@@ -51,6 +51,6 @@ module.exports = {
         return (days > 0 ? days + 'd' : '') +
                (hours > 0 ? hours + 'h ' : '') + 
                (minutes > 0 ? minutes + 'm ' : '') +
-               seconds + 's'
+               seconds + 's';
     }
 };
