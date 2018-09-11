@@ -27,7 +27,7 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
     this.storage = new Storage(this.config.bot.storage.directory, this.config.bot.storage.file);
     this.messages = new Messages(this.bot, this.config.messages, this.storage);
     this.security = new Security(this.config, this.messages, this.storage);
-    this.autoloader = new Autoloader(this, this.bot, this.messages) ;
+    this.autoloader = new Autoloader(this, this.bot, this.messages);
 
     console.log(this.messages._('serverStarting', {name: this.config.bot.name}));
     this.messages.broadcast.sendMarkdown('started');

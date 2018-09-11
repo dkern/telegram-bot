@@ -35,6 +35,7 @@ let Command = {
         // register command on bot
         instance.bot.onText(/^\/start$/i, msg => {
             let chatId = msg.chat.id;
+
             instance.messages.sendMarkdown(chatId, 'start', {user: msg.from.username, name: instance.config.bot.name}).then(() => {
                 if (!instance.security.allowed(msg)) {
                     instance.messages.sendMarkdown(chatId, 'userRejected');

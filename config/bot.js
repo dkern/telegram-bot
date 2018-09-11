@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * config
+ * default bot configuration
  * @type {*}
  */
 module.exports = {
@@ -33,6 +33,7 @@ module.exports = {
 
     /**
      * bot options
+     * @see https://github.com/yagop/node-telegram-bot-api/blob/release/doc/api.md#new-telegrambottoken-options
      * @type {*}
      */
     options: {
@@ -40,7 +41,7 @@ module.exports = {
     },
 
     /**
-     * storage settings
+     * user storage settings
      * @type {*}
      */
     storage: {
@@ -48,7 +49,7 @@ module.exports = {
          * storage directory, relative from process.cwd()
          * @type {string}
          */
-        directory: '/tmp',
+        directory: '/temp',
 
         /**
          * storage file

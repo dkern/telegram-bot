@@ -60,7 +60,7 @@ Config.prototype.bot = {
          * storage directory, relative from process.cwd()
          * @type {string}
          */
-        directory: '/tmp',
+        directory: '/temp',
 
         /**
          * storage file

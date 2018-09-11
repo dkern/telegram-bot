@@ -1,14 +1,20 @@
 'use strict';
 
+/**
+ * default messages
+ * values can be an string or an array of strings
+ * a random entry will be picked if it's an array
+ * @type {*}
+ */
 module.exports = {
     // server console messages
     serverStarting: '${name} is running ...',
     serverStopping: '${name} is shutting down ...',
     serverRegisterCmd: 'Command \'${cmd}\' registered ...',
-    commandAlreadyRegistered: 'command object of \'${name}\' already registered',
-    commandMissingRegister: 'command object of \'${name}\' needs a \'register\' function',
-    commandCmdNotice: 'command object of \'${name}\' should have \'cmd\' property set',
-    commandDescriptionNotice: 'command object of \'${name}\' should have \'description\' property set',
+    commandAlreadyRegistered: 'Command object of \'${name}\' already registered',
+    commandMissingRegister: 'Command object of \'${name}\' needs a \'register\' function',
+    commandCmdNotice: 'Command object of \'${name}\' should have \'cmd\' property set when \'showInHelp\' is enabled',
+    commandDescriptionNotice: 'Command object of \'${name}\' should have \'description\' property set when \'showInHelp\' is enabled',
 
     // default messages
     started: '✅ Bot Service started.',

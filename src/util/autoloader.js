@@ -12,7 +12,6 @@ let path = require('path');
  */
 let Autoloader = function(instance, bot, messages) {
     this.commands = {};
-
     this.instance = instance;
     this.bot = bot;
     this.messages = messages;
