@@ -23,7 +23,7 @@ let Messages = function(bot, messages, storage) {
 };
 
 /**
- * send html message to specified chat
+ * sends html message to specified chat
  * @param {string|number} chatId
  * @param {string} message
  * @param {object} [replaces]
@@ -34,7 +34,7 @@ Messages.prototype.sendHtml = function(chatId, message, replaces) {
 };
 
 /**
- * send html message to all registered users
+ * sends html message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}
@@ -44,7 +44,7 @@ Messages.prototype.sendHtmlBroadcast = function(message, replaces) {
 };
 
 /**
- * send markdown message to specified chat
+ * sends markdown message to specified chat
  * @param {string|number} chatId
  * @param {string} message
  * @param {object} [replaces]
@@ -55,7 +55,7 @@ Messages.prototype.sendMarkdown = function(chatId, message, replaces) {
 };
 
 /**
- * send markdown message to all registered users
+ * sends markdown message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}
@@ -65,7 +65,7 @@ Messages.prototype.sendMarkdownBroadcast = function(message, replaces) {
 };
 
 /**
- * send photo to specified chat
+ * sends photo to specified chat
  * @param {string|number} chatId
  * @param {string|stream.Stream|Buffer} image
  * @param {string} caption
@@ -77,7 +77,7 @@ Messages.prototype.sendPhoto = function(chatId, image, caption, replaces) {
 };
 
 /**
- * send photo to all registered users
+ * sends photo to all registered users
  * @param {string|stream.Stream|Buffer} image
  * @param {string} caption
  * @param {object} [replaces]
@@ -88,7 +88,7 @@ Messages.prototype.sendPhotoBroadcast = function(image, caption, replaces) {
 };
 
 /**
- * send text message to specified chat
+ * sends text message to specified chat
  * @param {string|number} chatId
  * @param {string} message
  * @param {object} [replaces]
@@ -99,7 +99,7 @@ Messages.prototype.sendText = function(chatId, message, replaces) {
 };
 
 /**
- * send text message to all registered users
+ * sends text message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}

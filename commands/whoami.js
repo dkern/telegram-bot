@@ -2,7 +2,7 @@
 
 /**
  * who am i command
- * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: function}}
  */
 let Command = {
     /**

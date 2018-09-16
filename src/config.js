@@ -12,6 +12,18 @@ let extend = require('extend');
 let Config = function(bot, defaultMessages, customMessages) {
     extend(this.bot, bot);
     extend(this.messages, defaultMessages, customMessages);
+
+    // disable polling auto-start
+    if (this.bot.options.polling === true) {
+        this.bot.options.polling = {
+            autoStart: false
+        };
+    }
+    else if (Object.prototype.toString.call(this.bot.options.polling) === '[object Object]') {
+        extend(this.bot.options.polling, {
+            autoStart: false
+        });
+    }
 };
 
 /**
@@ -48,7 +60,7 @@ Config.prototype.bot = {
      * @type {*}
      */
     options: {
-        polling: true
+        polling: true,
     },
 
     /**

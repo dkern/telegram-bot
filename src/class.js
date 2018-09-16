@@ -56,11 +56,12 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
 };
 
 /**
- * start message handling
- * @returns {void}
+ * register all commands and start polling
+ * @returns {Promise}
  */
-TelegramBotWrapper.prototype.register = function() {
+TelegramBotWrapper.prototype.start = function() {
     this.autoloader.registerCommands();
+    return this.bot.startPolling();
 };
 
 /**

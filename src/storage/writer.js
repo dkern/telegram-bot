@@ -4,12 +4,12 @@ let fs = require('fs');
 
 /**
  * storage writer
- * @param {string} dir
+ * @param {string} directory
  * @param {string} file
  * @constructor
  */
-let Writer = function(dir, file) {
-    this.directory = dir;
+let Writer = function(directory, file) {
+    this.directory = directory;
     this.file = file;
 };
 

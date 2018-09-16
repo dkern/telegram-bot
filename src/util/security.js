@@ -40,7 +40,7 @@ Security.prototype.check = function(chatId, username) {
 };
 
 /**
- * check if a user message is allowed
+ * check if a user message is allowed by whitelist
  * @param {string|object|TelegramBotMessage} username
  * @returns boolean
  */

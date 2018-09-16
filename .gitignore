@@ -8,5 +8,4 @@
 
 .idea
 node_modules
-tmp
-_test
+temp

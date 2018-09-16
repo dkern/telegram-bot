@@ -8,5 +8,7 @@
  * @returns {Promise}
  */
 module.exports = (bot, chatId, message) => {
-    return bot.sendMessage(chatId, message, {parse_mode: 'Markdown'});
+    return bot.sendMessage(chatId, message, {
+        parse_mode: 'Markdown'
+    });
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * send text message
+ * send plain text message
  * @param {TelegramBot} bot
  * @param {number|string} chatId
  * @param {string} message

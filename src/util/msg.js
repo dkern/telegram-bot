@@ -1,7 +1,8 @@
 'use strict';
 
 /**
- * helper class for definition of telegram messages
+ * helper class for definition of incoming telegram messages
+ * this will not be used directly, but helps ide like phpstorm to know the object properties
  * @type {{message_id: number, from: {id: number, is_bot: boolean, first_name: string, username: string, language_code: string}, chat: {id: number, first_name: string, username: string, type: string}, date: number, text: string, entities: *[]}}
  */
 let TelegramBotMessage = {

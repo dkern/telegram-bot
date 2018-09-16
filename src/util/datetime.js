@@ -37,7 +37,7 @@ module.exports = {
     },
 
     /**
-     * calculate runtime by seconds
+     * calculate runtime from a value of seconds
      * @param {string|number} uptime
      */
     getRuntime: uptime => {

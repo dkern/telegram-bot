@@ -12,7 +12,7 @@ let Broadcast = function(messages, storage) {
 };
 
 /**
- * send html message to all registered users
+ * sends html message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}
@@ -24,7 +24,7 @@ Broadcast.prototype.sendHtml = function(message, replaces) {
 };
 
 /**
- * send markdown message to all registered users
+ * sends markdown message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}
@@ -36,7 +36,7 @@ Broadcast.prototype.sendMarkdown = function(message, replaces) {
 };
 
 /**
- * send photo to all registered users
+ * sends photo to all registered users
  * @param {string|stream.Stream|Buffer} image
  * @param {string} caption
  * @param {object} [replaces]
@@ -49,7 +49,7 @@ Broadcast.prototype.sendPhoto = function(image, caption, replaces) {
 };
 
 /**
- * send text message to all registered users
+ * sends text message to all registered users
  * @param {string} message
  * @param {object} [replaces]
  * @returns {void}

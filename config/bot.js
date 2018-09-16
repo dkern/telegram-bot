@@ -28,7 +28,7 @@ module.exports = {
      * @type {Array}
      */
     allowedUserWhitelist: [
-        'usernames'
+        'username'
     ],
 
     /**

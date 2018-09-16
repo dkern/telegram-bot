@@ -4,7 +4,7 @@ let datetime = require('../src/util/datetime');
 
 /**
  * uptime command
- * @type {{cmd: string, description: string, showInHelp: boolean, register: module.exports.register}}
+ * @type {{cmd: string, description: string, showInHelp: boolean, register: function}}
  */
 let Command = {
     /**

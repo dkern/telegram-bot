@@ -2,7 +2,7 @@
 
 /**
  * message formation helper
- * @param messages
+ * @param {object} messages
  * @constructor
  */
 let Formatter = function(messages) {

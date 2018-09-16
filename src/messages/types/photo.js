@@ -9,6 +9,5 @@
  * @returns {Promise}
  */
 module.exports = (bot, chatId, photo, caption) => {
-    let opts = caption ? {caption: caption} : {};
-    return bot.sendPhoto(chatId, photo, opts);
+    return bot.sendPhoto(chatId, photo, caption ? {caption: caption} : {});
 };

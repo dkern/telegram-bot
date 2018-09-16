@@ -26,7 +26,7 @@ Autoloader.prototype.getLoadedCommands = function() {
 };
 
 /**
- * get all loaded commands (not registered!)
+ * get all registered commands
  * @returns {object}
  */
 Autoloader.prototype.getRegisteredCommands = function() {

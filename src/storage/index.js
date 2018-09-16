@@ -6,12 +6,14 @@ let datetime = require('../util/datetime');
 
 /**
  * user registration storage class
+ * @param {string} directory
+ * @param {string} file
  * @constructor
  */
-let Storage = function(dir, file) {
+let Storage = function(directory, file) {
     this.users = {};
-    this.reader = new Reader(dir, file);
-    this.writer = new Writer(dir, file);
+    this.reader = new Reader(directory, file);
+    this.writer = new Writer(directory, file);
 
     this.updateUsers();
 };

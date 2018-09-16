@@ -3,7 +3,7 @@
 /**
  * default messages
  * values can be an string or an array of strings
- * a random entry will be picked if it's an array
+ * a random entry will be picked if its an array
  * @type {*}
  */
 module.exports = {
