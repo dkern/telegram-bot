@@ -2,6 +2,7 @@
 
 let path = require('path');
 let Config = require('./config');
+let Events = require('./events');
 let Storage = require('./storage');
 let Messages = require('./messages');
 let Security = require('./util/security');
@@ -24,6 +25,7 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
 
     // start bot and initialize sub-classes
     this.bot = new TelegramBot(this.config.bot.token, this.config.bot.options);
+    this.events = new Events(this.bot);
     this.storage = new Storage(this.config.bot.storage.directory, this.config.bot.storage.file);
     this.messages = new Messages(this.bot, this.config.messages, this.storage);
     this.security = new Security(this.config, this.messages, this.storage);
@@ -45,7 +47,7 @@ let TelegramBotWrapper = function(botConfig, messagesConfig) {
 
     // add core commands
     try {
-        let module = require.resolve('telegram-bot');
+        let module = require.resolve('telegram-chat-bot');
         this.autoloader.addCommandsDir(path.dirname(module) + '/commands');
     }
     catch(e) {}
@@ -78,6 +80,14 @@ TelegramBotWrapper.prototype.getBot = function() {
  */
 TelegramBotWrapper.prototype.getConfig = function() {
     return this.config;
+};
+
+/**
+ * get events instance
+ * @returns {Events}
+ */
+TelegramBotWrapper.prototype.getEvents = function() {
+    return this.events;
 };
 
 /**
