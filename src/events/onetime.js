@@ -8,9 +8,9 @@
  * @returns {void}
  */
 let OneTimeListener = function(bot, type, callback) {
-    let listener = function() {
+    let listener = (...args) => {
         bot.off(type, listener);
-        callback.apply(this, arguments);
+        callback.apply(this, args);
     };
 
     bot.on(type, listener);

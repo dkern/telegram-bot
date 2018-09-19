@@ -12,6 +12,26 @@ let Events = function(bot) {
 };
 
 /**
+ * register event listener on bot instance
+ * @param {string} type
+ * @param {function} callback
+ * @returns {void}
+ */
+Events.prototype.on = function(type, callback) {
+    this.bot.on(type, callback);
+};
+
+/**
+ * unregister event listener on bot instance
+ * @param {string} type
+ * @param {function} callback
+ * @returns {void}
+ */
+Events.prototype.off = function(type, callback) {
+    this.bot.off(type, callback);
+};
+
+/**
  * create a one-time listener, optionally by type
  * @param {string|function} type
  * @param {function} [callback]

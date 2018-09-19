@@ -2,10 +2,12 @@
 
 let Formatter = require('./formatter');
 let Broadcast = require('./broadcast');
-let html = require('./types/html');
-let markdown = require('./types/markdown');
-let photo = require('./types/photo');
-let text = require('./types/text');
+
+let typeHtml = require('./types/html');
+let typeMarkdown = require('./types/markdown');
+let typeMessage = require('./types/message');
+let typePhoto = require('./types/photo');
+let typeText = require('./types/text');
 
 /**
  * messages handler class
@@ -30,7 +32,7 @@ let Messages = function(bot, messages, storage) {
  * @returns {Promise|void}
  */
 Messages.prototype.sendHtml = function(chatId, message, replaces) {
-    return html(this.bot, chatId, this._(message, replaces));
+    return typeHtml(this.bot, chatId, this._(message, replaces));
 };
 
 /**
@@ -51,7 +53,7 @@ Messages.prototype.sendHtmlBroadcast = function(message, replaces) {
  * @returns {Promise|void}
  */
 Messages.prototype.sendMarkdown = function(chatId, message, replaces) {
-    return markdown(this.bot, chatId, this._(message, replaces));
+    return typeMarkdown(this.bot, chatId, this._(message, replaces));
 };
 
 /**
@@ -65,6 +67,29 @@ Messages.prototype.sendMarkdownBroadcast = function(message, replaces) {
 };
 
 /**
+ * sends markdown message to specified chat
+ * @param {string|number} chatId
+ * @param {string} message
+ * @param {object} [replaces]
+ * @param {object} [options]
+ * @returns {Promise|void}
+ */
+Messages.prototype.sendMessage = function(chatId, message, replaces, options) {
+    return typeMessage(this.bot, chatId, this._(message, replaces), options);
+};
+
+/**
+ * sends markdown message to all registered users
+ * @param {string} message
+ * @param {object} [replaces]
+ * @param {object} [options]
+ * @returns {void}
+ */
+Messages.prototype.sendMessageBroadcast = function(message, replaces, options) {
+    this.broadcast.sendMessage(message, replaces, options);
+};
+
+/**
  * sends photo to specified chat
  * @param {string|number} chatId
  * @param {string|stream.Stream|Buffer} image
@@ -73,7 +98,7 @@ Messages.prototype.sendMarkdownBroadcast = function(message, replaces) {
  * @returns {Promise|void}
  */
 Messages.prototype.sendPhoto = function(chatId, image, caption, replaces) {
-    return photo(this.bot, chatId, image, this._(caption, replaces));
+    return typePhoto(this.bot, chatId, image, this._(caption, replaces));
 };
 
 /**
@@ -95,7 +120,7 @@ Messages.prototype.sendPhotoBroadcast = function(image, caption, replaces) {
  * @returns {Promise|void}
  */
 Messages.prototype.sendText = function(chatId, message, replaces) {
-    text(this.bot, chatId, this._(message, replaces));
+    return typeText(this.bot, chatId, this._(message, replaces));
 };
 
 /**

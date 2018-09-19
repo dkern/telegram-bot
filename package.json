@@ -1,7 +1,7 @@
 {
   "name": "telegram-chat-bot",
   "title": "Telegram Chat Bot",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Easy, lightweight and extendable Telegram Chat Bot for your needs.",
   "main": "index.js",
   "homepage": "https://github.com/eisbehr-/telegram-bot",

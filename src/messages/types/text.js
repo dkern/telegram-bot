@@ -1,5 +1,7 @@
 'use strict';
 
+let sendMessage = require("./message");
+
 /**
  * send plain text message
  * @param {TelegramBot} bot
@@ -8,5 +10,5 @@
  * @returns {Promise}
  */
 module.exports = (bot, chatId, message) => {
-    return bot.sendMessage(chatId, message);
+    return sendMessage(bot, chatId, message);
 };

@@ -36,6 +36,19 @@ Broadcast.prototype.sendMarkdown = function(message, replaces) {
 };
 
 /**
+ * sends markdown message to all registered users
+ * @param {string} message
+ * @param {object} [replaces]
+ * @param {object} [options]
+ * @returns {void}
+ */
+Broadcast.prototype.sendMessage = function(message, replaces, options) {
+    Object.keys(this.storage.getUsers()).forEach(username => {
+        this.messages.sendMessage(this.storage.getUser(username).chatId, message, replaces, options);
+    });
+};
+
+/**
  * sends photo to all registered users
  * @param {string|stream.Stream|Buffer} image
  * @param {string} caption
