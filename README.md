@@ -349,7 +349,7 @@ $ gulp validate
 
 
 ## Bugs / Feature request
-Please [report](http://github.com/eisbehr-/telegram-bot/issues) bugs and feel free to [ask](http://github.com/eisbehr-/telegram-bot/issues) for new features directly on GitHub.
+Please [report](http://github.com/dkern/telegram-bot/issues) bugs and feel free to [ask](http://github.com/dkern/telegram-bot/issues) for new features directly on GitHub.
 
 
 ## License

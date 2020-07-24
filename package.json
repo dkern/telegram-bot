@@ -1,11 +1,11 @@
 {
   "name": "telegram-chat-bot",
   "title": "Telegram Chat Bot",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Easy, lightweight and extendable Telegram Chat Bot for your needs.",
   "main": "index.js",
-  "homepage": "https://github.com/eisbehr-/telegram-bot",
-  "bugs": "https://github.com/eisbehr-/telegram-bot/issues",
+  "homepage": "https://github.com/dkern/telegram-bot",
+  "bugs": "https://github.com/dkern/telegram-bot/issues",
   "author": {
     "name": "Daniel 'Eisbehr' Kern",
     "email": "jquery@eisbehr.de",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:eisbehr-/telegram-bot.git"
+    "url": "git@github.com:dkern/telegram-bot.git"
   },
   "keywords": [
     "telegram",
